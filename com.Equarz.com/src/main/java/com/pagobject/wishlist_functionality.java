@@ -1,107 +1,93 @@
 package com.pagobject;
 
-public class wishlist_functionality {
-	import java.util.ArrayList;
-	import java.util.List;
-	import java.util.Scanner;
+package com.pageobjects;
 
-	class Item {
-	    private String name;
-	    private double price;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-	    public Item(String name, double price) {
-	        this.name = name;
-	        this.price = price;
-	    }
+import com.Base.Testbase;
 
-	    public String getName() {
-	        return name;
-	    }
-
-	    public double getPrice() {
-	        return price;
-	    }
-
-	    @Override
-	    public String toString() {
-	        return name + " - $" + price;
-	    }
+public class BuynowFunctionality extends Testbase{
+	
+	@FindBy(id="si-email")
+	WebElement signin;
+	@FindBy(id="si-password")
+	WebElement pass;
+	@FindBy(xpath="//button[@class='btn btn--primary btn-block btn-shadow']")
+	WebElement   signbttn;
+	
+	@FindBy(css = "[src='http://e-quarz.com/storage/app/public/banner/2023-07-21-64ba5d6aa14b4.png']")
+	WebElement banner;
+	@FindBy (css = "[src='http://e-quarz.com/storage/app/public/product/thumbnail/2023-06-23-64954c5de6998.png']")
+	WebElement SLIMCOAT;
+	@FindBy(css = "[onclick='buy_now()']")
+	WebElement BUYBTN;
+	
+	@FindBy(css ="[alt='Nike']")
+	WebElement nikeproduct;
+	@FindBy(css = "[src='http://e-quarz.com/storage/app/public/product/thumbnail/2023-06-22-64946b6ddb4d7.png']")
+	WebElement nikeshoe;
+	@FindBy(linkText = "//span[text()='Buy now']")
+	WebElement Buybtn;
+	
+	@FindBy(xpath = "(//i[@class='czi-menu align-middle mt-n1 mr-2'])[1]")
+	WebElement categorybtn;
+	@FindBy(linkText = "(//span[text()='Electronics'])[1]")
+	WebElement electronics;
+	@FindBy(linkText = "(//span[text()='Cameras'])[1]")
+	WebElement cameras;
+	@FindBy(xpath = "(//a[@href='http://e-quarz.com/product/fujifilm-x-t5-mirrorless-camera-with-18-55mm-lens-silver-24uZ7t'])[1]")
+	WebElement fujcam;
+	@FindBy(css = "[onclick='buy_now()']")
+	WebElement buysbtn;
+	
+	
+	@FindBy(xpath = "//input[@class='form-control appended-form-control search-bar-input']")
+	WebElement searchbox;
+	@FindBy(xpath ="(//span[@class='input-group-text __text-20px'])[1]")
+	WebElement searchbttn;
+	@FindBy(xpath ="(//a[@href='http://e-quarz.com/product/fujifilm-x-t5-mirrorless-camera-with-18-55mm-lens-silver-24uZ7t'])[1]")
+	WebElement CAMERAproduct;
+	@FindBy(css = "[class='btn btn-secondary element-center __iniline-26 btn-gap-right']")
+	WebElement buybtn;
+	
+	
+	public BuynowFunctionality(WebDriver driver) {
+		PageFactory.initElements(driver, this);
+		
 	}
-
-	class Wishlist {
-	    private List<Item> items = new ArrayList<>();
-
-	    public void addItem(Item item) {
-	        items.add(item);
-	    }
-
-	    public void removeItem(Item item) {
-	        items.remove(item);
-	    }
-
-	    public void displayWishlist() {
-	        if (items.isEmpty()) {
-	            System.out.println("Your wishlist is empty.");
-	        } else {
-	            System.out.println("Your Wishlist:");
-	            for (Item item : items) {
-	                System.out.println(item);
-	            }
-	        }
-	    }
+	
+	public Hompage bannerproducts() throws Exception {
+		banner.click();
+		SLIMCOAT.click();
+		//Thread.sleep(3000);
+		BUYBTN.click();
+		return new Hompage();
 	}
-
-	public class WishlistApp {
-	    public static void main(String[] args) {
-	        Scanner scanner = new Scanner(System.in);
-	        Wishlist wishlist = new Wishlist();
-
-	        while (true) {
-	            System.out.println("\nWishlist Menu:");
-	            System.out.println("1. Add Item to Wishlist");
-	            System.out.println("2. Remove Item from Wishlist");
-	            System.out.println("3. View Wishlist");
-	            System.out.println("4. Exit");
-
-	            System.out.print("Enter your choice: ");
-	            int choice = scanner.nextInt();
-	            scanner.nextLine(); // Consume the newline character
-
-	            switch (choice) {
-	                case 1:
-	                    System.out.print("Enter item name: ");
-	                    String itemName = scanner.nextLine();
-	                    System.out.print("Enter item price: ");
-	                    double itemPrice = scanner.nextDouble();
-	                    Item newItem = new Item(itemName, itemPrice);
-	                    wishlist.addItem(newItem);
-	                    System.out.println(itemName + " has been added to your wishlist.");
-	                    break;
-	                case 2:
-	                    wishlist.displayWishlist();
-	                    System.out.print("Enter the name of the item to remove: ");
-	                    String itemToRemove = scanner.nextLine();
-	                    for (Item item : wishlist.getItems()) {
-	                        if (item.getName().equalsIgnoreCase(itemToRemove)) {
-	                            wishlist.removeItem(item);
-	                            System.out.println(item.getName() + " has been removed from your wishlist.");
-	                            break;
-	                        }
-	                    }
-	                    break;
-	                case 3:
-	                    wishlist.displayWishlist();
-	                    break;
-	                case 4:
-	                    System.out.println("Exiting Wishlist App. Goodbye!");
-	                    scanner.close();
-	                    System.exit(0);
-	                default:
-	                    System.out.println("Invalid choice. Please select a valid option.");
-	                    break;
-	            }
-	        }
-	    }
+	
+	public void homeproducts() {
+		nikeproduct.click();
+		nikeshoe.click();
+		Buybtn.click();
+	}
+	
+	public void categeryproducts() {
+		categorybtn.click();
+		Actions ac=new Actions (driver);
+		ac.moveToElement(electronics).build().perform();
+		cameras.click();
+		fujcam.click();
+		 buysbtn.click();
+	}
+	
+	public void searchproducts() {
+		searchbox.sendKeys(props.getProperty("searchbox"));
+		searchbttn.click();
+		CAMERAproduct.click();
+		buybtn.click();
 	}
 
 }

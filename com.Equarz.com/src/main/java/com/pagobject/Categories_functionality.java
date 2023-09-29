@@ -1,100 +1,95 @@
 package com.pagobject;
 
  
-	import java.util.ArrayList;
-	import java.util.List;
-	import java.util.Scanner;
+package com.pageobjects;
 
-	class Category {
-	    private String name;
-	    private List<String> items;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-	    public Category(String name) {
-	        this.name = name;
-	        this.items = new ArrayList<>();
-	    }
+import com.Base.Testbase;
 
-	    public String getName() {
-	        return name;
-	    }
-
-	    public void addItem(String item) {
-	        items.add(item);
-	    }
-
-	    public List<String> getItems() {
-	        return items;
-	    }
+public class BuynowFunctionality extends Testbase{
+	
+	@FindBy(id="si-email")
+	WebElement signin;
+	@FindBy(id="si-password")
+	WebElement pass;
+	@FindBy(xpath="//button[@class='btn btn--primary btn-block btn-shadow']")
+	WebElement   signbttn;
+	
+	@FindBy(css = "[src='http://e-quarz.com/storage/app/public/banner/2023-07-21-64ba5d6aa14b4.png']")
+	WebElement banner;
+	@FindBy (css = "[src='http://e-quarz.com/storage/app/public/product/thumbnail/2023-06-23-64954c5de6998.png']")
+	WebElement SLIMCOAT;
+	@FindBy(css = "[onclick='buy_now()']")
+	WebElement BUYBTN;
+	
+	@FindBy(css ="[alt='Nike']")
+	WebElement nikeproduct;
+	@FindBy(css = "[src='http://e-quarz.com/storage/app/public/product/thumbnail/2023-06-22-64946b6ddb4d7.png']")
+	WebElement nikeshoe;
+	@FindBy(linkText = "//span[text()='Buy now']")
+	WebElement Buybtn;
+	
+	@FindBy(xpath = "(//i[@class='czi-menu align-middle mt-n1 mr-2'])[1]")
+	WebElement categorybtn;
+	@FindBy(linkText = "(//span[text()='Electronics'])[1]")
+	WebElement electronics;
+	@FindBy(linkText = "(//span[text()='Cameras'])[1]")
+	WebElement cameras;
+	@FindBy(xpath = "(//a[@href='http://e-quarz.com/product/fujifilm-x-t5-mirrorless-camera-with-18-55mm-lens-silver-24uZ7t'])[1]")
+	WebElement fujcam;
+	@FindBy(css = "[onclick='buy_now()']")
+	WebElement buysbtn;
+	
+	
+	@FindBy(xpath = "//input[@class='form-control appended-form-control search-bar-input']")
+	WebElement searchbox;
+	@FindBy(xpath ="(//span[@class='input-group-text __text-20px'])[1]")
+	WebElement searchbttn;
+	@FindBy(xpath ="(//a[@href='http://e-quarz.com/product/fujifilm-x-t5-mirrorless-camera-with-18-55mm-lens-silver-24uZ7t'])[1]")
+	WebElement CAMERAproduct;
+	@FindBy(css = "[class='btn btn-secondary element-center __iniline-26 btn-gap-right']")
+	WebElement buybtn;
+	
+	
+	public BuynowFunctionality(WebDriver driver) {
+		PageFactory.initElements(driver, this);
+		
 	}
-
-	public class CategoryManagement {
-	    public static void main(String[] args) {
-	        Scanner scanner = new Scanner(System.in);
-	        List<Category> categories = new ArrayList<>();
-
-	        while (true) {
-	            System.out.println("Category Management System");
-	            System.out.println("1. Create a new category");
-	            System.out.println("2. Add an item to a category");
-	            System.out.println("3. List all categories");
-	            System.out.println("4. Quit");
-	            System.out.print("Enter your choice: ");
-
-	            int choice = scanner.nextInt();
-	            scanner.nextLine(); // Consume newline
-
-	            switch (choice) {
-	                case 1:
-	                    System.out.print("Enter the name of the category: ");
-	                    String categoryName = scanner.nextLine();
-	                    categories.add(new Category(categoryName));
-	                    System.out.println("Category '" + categoryName + "' created.");
-	                    break;
-	                case 2:
-	                    if (categories.isEmpty()) {
-	                        System.out.println("No categories exist. Create a category first.");
-	                    } else {
-	                        System.out.println("Select a category:");
-
-	                        for (int i = 0; i < categories.size(); i++) {
-	                            System.out.println((i + 1) + ". " + categories.get(i).getName());
-	                        }
-
-	                        int categoryChoice = scanner.nextInt();
-	                        scanner.nextLine(); // Consume newline
-
-	                        if (categoryChoice >= 1 && categoryChoice <= categories.size()) {
-	                            Category selectedCategory = categories.get(categoryChoice - 1);
-	                            System.out.print("Enter the name of the item: ");
-	                            String itemName = scanner.nextLine();
-	                            selectedCategory.addItem(itemName);
-	                            System.out.println("Item '" + itemName + "' added to category '" + selectedCategory.getName() + "'.");
-	                        } else {
-	                            System.out.println("Invalid category selection.");
-	                        }
-	                    }
-	                    break;
-	                case 3:
-	                    if (categories.isEmpty()) {
-	                        System.out.println("No categories exist.");
-	                    } else {
-	                        System.out.println("List of categories:");
-	                        for (Category category : categories) {
-	                            System.out.println(category.getName() + " - Items: " + category.getItems());
-	                        }
-	                    }
-	                    break;
-	                case 4:
-	                    System.out.println("Exiting the Category Management System.");
-	                    scanner.close();
-	                    System.exit(0);
-	                    break;
-	                default:
-	                    System.out.println("Invalid choice. Please enter a valid option.");
-	            }
-	        }
-	    }
+	
+	public Hompage bannerproducts() throws Exception {
+		banner.click();
+		SLIMCOAT.click();
+		//Thread.sleep(3000);
+		BUYBTN.click();
+		return new Hompage();
 	}
-
+	
+	public void homeproducts() {
+		nikeproduct.click();
+		nikeshoe.click();
+		Buybtn.click();
+	}
+	
+	public void categeryproducts() {
+		categorybtn.click();
+		Actions ac=new Actions (driver);
+		ac.moveToElement(electronics).build().perform();
+		cameras.click();
+		fujcam.click();
+		 buysbtn.click();
+	}
+	
+	public void searchproducts() {
+		searchbox.sendKeys(props.getProperty("searchbox"));
+		searchbttn.click();
+		CAMERAproduct.click();
+		buybtn.click();
+	}
 
 }
+	
